@@ -2,6 +2,8 @@
 
 import { useState, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Starfield } from "@/lib/cosmos/Starfield";
 import { Field } from "@/lib/cosmos/Field";
 import type { CardOrigin } from "@/lib/cosmos/IdeaCard";
@@ -9,6 +11,7 @@ import { NeonButton } from "@/components/hud/NeonButton";
 import { Icon } from "@/components/hud/Icon";
 import { HudBar } from "@/components/HudBar";
 import { FlyCard } from "@/components/overlays/FlyCard";
+import { ModuleDetail } from "@/components/overlays/ModuleDetail";
 import { ideas } from "@/content/ideas";
 import { modules } from "@/content/modules";
 
@@ -17,6 +20,7 @@ import { modules } from "@/content/modules";
    in later tasks via the `sel` / `submitOpen` state held here. */
 export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: number; drift?: boolean }) {
   const t = useTranslations();
+  const router = useRouter();
   const [sel, setSel] = useState<{ id: string; origin: CardOrigin } | null>(null);
   const [, setSubmitOpen] = useState(false);
 
@@ -24,6 +28,20 @@ export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: nu
   const onSelect = (id: string, origin: CardOrigin) => setSel({ id, origin });
   const close = () => setSel(null);
   const ideaNode = sel ? ideas.find((n) => n.id === sel.id) : undefined;
+  const moduleNode = sel ? modules.find((m) => m.id === sel.id) : undefined;
+
+  const onNav = (id: string) => {
+    setSel(null);
+    if (id === "roadmap") {
+      router.push("/roadmap");
+      return;
+    }
+    toast(t("common.moduleComingOnline", { label: t(`quick.${id}`) }));
+  };
+  const openSubmit = () => {
+    setSel(null);
+    setSubmitOpen(true);
+  };
 
   return (
     <div className="fz-lab">
@@ -57,6 +75,7 @@ export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: nu
       </div>
 
       {ideaNode && <FlyCard node={ideaNode} origin={sel?.origin ?? null} onClose={close} />}
+      {moduleNode && <ModuleDetail node={moduleNode} onClose={close} onNav={onNav} onOpenSubmit={openSubmit} />}
     </div>
   );
 }
