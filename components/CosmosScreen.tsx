@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { TweaksPanel, STAR_COUNT, type Tweaks } from "@/components/tweaks/TweaksPanel";
 import { Starfield } from "@/lib/cosmos/Starfield";
 import { Field } from "@/lib/cosmos/Field";
 import type { CardOrigin } from "@/lib/cosmos/IdeaCard";
@@ -19,11 +20,20 @@ import { modules } from "@/content/modules";
 /* Home cosmos screen: starfield + 3D field + center wordmark + HUD bar + submit.
    Detail overlays (idea fly-card, module panels) and the submit modal are wired
    in later tasks via the `sel` / `submitOpen` state held here. */
-export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: number; drift?: boolean }) {
+export function CosmosScreen() {
   const t = useTranslations();
   const router = useRouter();
   const [sel, setSel] = useState<{ id: string; origin: CardOrigin } | null>(null);
   const [submitOpen, setSubmitOpen] = useState(false);
+  const [tw, setTw] = useState<Tweaks>({ accent: "#2ee6f6", stars: "medium", drift: true, scanlines: true });
+  const patchTweaks = (p: Partial<Tweaks>) => setTw((v) => ({ ...v, ...p }));
+
+  useEffect(() => {
+    document.documentElement.style.setProperty("--lab-accent", tw.accent);
+    return () => {
+      document.documentElement.style.removeProperty("--lab-accent");
+    };
+  }, [tw.accent]);
 
   const detailOpen = !!sel;
   const onSelect = (id: string, origin: CardOrigin) => setSel({ id, origin });
@@ -50,9 +60,9 @@ export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: nu
 
   return (
     <div className="fz-lab">
-      <Starfield count={starCount} />
+      <Starfield count={STAR_COUNT[tw.stars]} />
       <main className="fz-lab-stage">
-        <Field nodes={ideas} modules={modules} selectedId={sel?.id ?? null} onSelect={onSelect} drift={drift} />
+        <Field nodes={ideas} modules={modules} selectedId={sel?.id ?? null} onSelect={onSelect} drift={tw.drift} />
       </main>
 
       <div className="fz-center-id">
@@ -82,6 +92,9 @@ export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: nu
       {ideaNode && <FlyCard node={ideaNode} origin={sel?.origin ?? null} onClose={close} />}
       {moduleNode && <ModuleDetail node={moduleNode} onClose={close} onNav={onNav} onOpenSubmit={openSubmit} />}
       {submitOpen && <SubmitModal onClose={() => setSubmitOpen(false)} onSubmit={onSubmitIdea} />}
+
+      {tw.scanlines && <div className="fz-scanlines" style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 80 }} />}
+      <TweaksPanel value={tw} onChange={patchTweaks} />
     </div>
   );
 }
