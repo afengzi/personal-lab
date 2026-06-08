@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Orbitron, Chakra_Petch, Share_Tech_Mono } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const orbitron = Orbitron({
@@ -25,15 +28,19 @@ export const metadata: Metadata = {
   description: "Vibecoding Personal Lab — building in public, shipping daily.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getLocale();
   return (
     <html
-      lang="zh"
+      lang={locale}
       className={`dark ${orbitron.variable} ${chakra.variable} ${shareMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <Toaster position="bottom-center" />
+      </body>
     </html>
   );
 }
