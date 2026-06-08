@@ -12,6 +12,7 @@ import { Icon } from "@/components/hud/Icon";
 import { HudBar } from "@/components/HudBar";
 import { FlyCard } from "@/components/overlays/FlyCard";
 import { ModuleDetail } from "@/components/overlays/ModuleDetail";
+import { SubmitModal, type SubmitPayload } from "@/components/overlays/SubmitModal";
 import { ideas } from "@/content/ideas";
 import { modules } from "@/content/modules";
 
@@ -22,7 +23,7 @@ export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: nu
   const t = useTranslations();
   const router = useRouter();
   const [sel, setSel] = useState<{ id: string; origin: CardOrigin } | null>(null);
-  const [, setSubmitOpen] = useState(false);
+  const [submitOpen, setSubmitOpen] = useState(false);
 
   const detailOpen = !!sel;
   const onSelect = (id: string, origin: CardOrigin) => setSel({ id, origin });
@@ -41,6 +42,10 @@ export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: nu
   const openSubmit = () => {
     setSel(null);
     setSubmitOpen(true);
+  };
+  const onSubmitIdea = (p: SubmitPayload) => {
+    setSubmitOpen(false);
+    toast.success(t("submit.launched", { title: p.title }));
   };
 
   return (
@@ -76,6 +81,7 @@ export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: nu
 
       {ideaNode && <FlyCard node={ideaNode} origin={sel?.origin ?? null} onClose={close} />}
       {moduleNode && <ModuleDetail node={moduleNode} onClose={close} onNav={onNav} onOpenSubmit={openSubmit} />}
+      {submitOpen && <SubmitModal onClose={() => setSubmitOpen(false)} onSubmit={onSubmitIdea} />}
     </div>
   );
 }
