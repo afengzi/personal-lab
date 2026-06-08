@@ -11,3 +11,194 @@
   position: absolute; inset: 0; width: 100%; height: 100%;
   display: block; z-index: 1; pointer-events: none;
 }
+
+/* ---- immersive lab shell ---- */
+.fz-lab { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.fz-lab-stage { position: absolute; inset: 0; }
+
+/* ---- 3D field ---- */
+.fz-field {
+  position: absolute; inset: 0; z-index: 1;
+  cursor: grab; touch-action: none;
+  perspective: 2200px;
+  overflow: hidden;
+}
+.fz-field:active { cursor: grabbing; }
+
+.fz-system {
+  position: absolute;
+  left: 50%; top: 52%;
+  width: 0; height: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+}
+
+/* a positioned point in the rotating frame; its card billboards to face you */
+.fz-cardpos {
+  position: absolute; left: 0; top: 0;
+  transform-style: preserve-3d;
+  transform:
+    translate3d(var(--x), var(--y), var(--z))
+    rotateY(calc(-1 * var(--ry)))
+    rotateX(calc(-1 * var(--rx)))
+    translate(-50%, -50%);
+  transition: opacity .2s linear;
+}
+
+.fz-subpos {
+  position: absolute; left: 0; top: 0;
+  transform-style: preserve-3d;
+  transform:
+    translate3d(var(--x), var(--y), var(--z))
+    rotateY(calc(-1 * var(--ry)))
+    rotateX(calc(-1 * var(--rx)))
+    translate(-50%, -50%);
+  transition: opacity .2s linear;
+  pointer-events: none;
+}
+.fz-sub {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  padding: 4px 9px 4px 7px; border-radius: 999px; border: 1px solid;
+  background: rgba(8,12,22,.86);
+  font-family: var(--font-mono); font-size: 9.5px; color: var(--text);
+  box-shadow: 0 2px 10px -4px #000;
+  text-decoration: none; cursor: pointer;
+  transition: transform .2s var(--ease-hud), background .18s, box-shadow .18s, color .18s;
+}
+.fz-sub:hover {
+  background: color-mix(in srgb, var(--hex) 18%, rgba(8,12,22,.92));
+  color: var(--text-bright);
+  box-shadow: 0 0 16px -4px var(--hex);
+}
+.fz-sub-dot { width: 5px; height: 5px; border-radius: 50%; flex: 0 0 auto; }
+
+/* ---- idea content card ---- */
+.fz-card {
+  position: relative; width: 198px;
+  display: flex; flex-direction: column; gap: 0;
+  padding: 12px 13px 11px; text-align: left;
+  background: linear-gradient(180deg, rgba(13,20,35,.97), rgba(8,12,22,.98));
+  box-shadow: inset 0 0 0 1px var(--frame), inset 0 0 22px rgba(8,14,26,.55), 0 10px 30px -14px #000;
+  clip-path: polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px);
+  cursor: pointer;
+  transition: transform .26s var(--ease-hud), box-shadow .26s var(--ease-hud);
+}
+.fz-card:hover {
+  transform: scale(1.16);
+  box-shadow: inset 0 0 0 1px var(--hex), 0 0 34px -6px var(--hex), 0 12px 34px -14px #000;
+}
+.fz-card-edge {
+  position: absolute; left: 0; top: 11px; bottom: 0; width: 3px;
+  background: var(--hex); box-shadow: 0 0 12px -1px var(--hex);
+}
+.fz-card-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.fz-card-cat {
+  font-family: var(--font-techno); font-weight: 600; font-size: 8.5px;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--c);
+}
+.fz-card-stage {
+  font-family: var(--font-techno); font-weight: 600; font-size: 7.5px; letter-spacing: .12em;
+  padding: 1px 5px; border-radius: 2px; border: 1px solid; white-space: nowrap;
+}
+.fz-card-title {
+  font-family: var(--font-techno); font-weight: 700; font-size: 16px;
+  letter-spacing: .01em; color: var(--text-bright); margin: 4px 0 4px; line-height: 1.05;
+  text-shadow: 0 0 12px color-mix(in srgb, var(--hex) 55%, transparent);
+}
+.fz-card-desc {
+  font-family: var(--font-mono); font-size: 10px; line-height: 1.35; color: var(--text-dim);
+  margin-bottom: 8px; min-height: 27px;
+}
+.fz-card-meta {
+  display: flex; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 9px;
+  padding-bottom: 9px; border-bottom: 1px solid var(--line-faint);
+}
+.fz-card-m {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-mono); font-size: 9.5px; color: var(--text);
+}
+.fz-card-bar {
+  display: block; height: 4px; border-radius: 999px; background: var(--bg-deep);
+  overflow: hidden; box-shadow: inset 0 0 0 1px var(--line-faint);
+}
+.fz-card-bar > span { display: block; height: 100%; border-radius: 999px; transition: width .5s var(--ease-hud); }
+.fz-card-foot {
+  display: flex; align-items: center; justify-content: space-between; margin-top: 8px;
+  font-family: var(--font-mono); font-size: 9px; color: var(--text-dim);
+}
+.fz-card-pct { font-family: var(--font-techno); font-weight: 600; letter-spacing: .08em; }
+.fz-card-open {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-techno); font-weight: 600; font-size: 8.5px; letter-spacing: .14em;
+  color: var(--text-mono);
+}
+
+/* ---- module nodes (in the cosmos) ---- */
+.fz-modpos {
+  position: absolute; left: 0; top: 0; transform-style: preserve-3d;
+  transform: translate3d(var(--x), var(--y), var(--z)) rotateY(calc(-1 * var(--ry))) rotateX(calc(-1 * var(--rx))) translate(-50%, -50%);
+  transition: opacity .2s linear;
+}
+.fz-mod {
+  display: flex; align-items: center; gap: 10px; width: 198px; padding: 9px 11px; border: none;
+  text-align: left; cursor: pointer;
+  background: linear-gradient(180deg, rgba(13,20,35,.96), rgba(8,12,22,.97));
+  box-shadow: inset 0 0 0 1px var(--frame), 0 8px 24px -14px #000;
+  clip-path: polygon(9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%,0 9px);
+  transition: transform .24s var(--ease-hud), box-shadow .24s var(--ease-hud);
+}
+.fz-mod:hover, .fz-mod.is-sel { transform: scale(1.12); box-shadow: inset 0 0 0 1px var(--hex), 0 0 26px -6px var(--hex); }
+.fz-mod-ic {
+  width: 34px; height: 34px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 7px;
+  background: color-mix(in srgb, var(--hex) 14%, var(--bg-deep)); color: var(--hex);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--hex) 40%, transparent), 0 0 14px -7px var(--hex);
+}
+.fz-mod-tx { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.fz-mod-t { font-family: var(--font-techno); font-weight: 700; font-size: 12.5px; color: var(--text-bright); line-height: 1.1; text-shadow: 0 0 10px color-mix(in srgb, var(--hex) 50%, transparent); }
+.fz-mod-d { font-family: var(--font-mono); font-size: 9px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fz-mod-open { color: var(--text-mono); flex: 0 0 auto; }
+
+/* ---- name + domain at the still center of the cosmos ---- */
+.fz-center-id {
+  position: absolute; left: 50%; top: 43%; transform: translate(-50%, -50%);
+  z-index: 2; pointer-events: none; text-align: center;
+}
+.fz-center-wm {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(30px, 4.6vw, 58px); letter-spacing: .16em;
+  color: var(--text-bright); text-shadow: var(--glow-cyan); line-height: 1;
+}
+.fz-center-dm {
+  font-family: var(--font-mono); font-size: clamp(11px, 1.3vw, 15px);
+  color: var(--magenta); text-shadow: var(--glow-magenta); margin-top: 9px;
+  letter-spacing: .04em;
+}
+
+.fz-map-hint {
+  position: absolute; left: 16px; bottom: 14px; z-index: 3;
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 10px; color: var(--text-dim);
+  pointer-events: none; opacity: .7;
+}
+
+/* ---- cosmos HUD overlay (top status / nav / submit) ---- */
+.hud-top { position: fixed; top: 24px; right: 24px; z-index: 60; display: flex; align-items: center; gap: 10px; }
+.hud-status {
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px;
+  background: rgba(8,13,24,.7); border: 1px solid var(--line-dim); border-radius: 4px;
+  font-family: var(--font-techno); font-weight: 600; font-size: 10px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--text-dim);
+  clip-path: polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+}
+.hud-submit { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 60; }
+
+.appnav { position: absolute; z-index: 5; display: flex; align-items: center; gap: 6px; }
+.nav-btn {
+  display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; cursor: pointer;
+  background: var(--bg-deep); border: 1px solid var(--line-dim); border-radius: 4px;
+  font-family: var(--font-techno); font-weight: 600; font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--text-dim); transition: all .16s var(--ease-hud);
+  clip-path: polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px);
+}
+.nav-btn:hover { color: var(--lab-accent); border-color: var(--lab-accent); }
+.nav-btn.active { color: var(--lab-accent); border-color: var(--lab-accent); background: color-mix(in srgb, var(--lab-accent) 12%, var(--bg-deep)); box-shadow: 0 0 16px -6px var(--lab-accent); }
