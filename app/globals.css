@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./cosmos.css";
 
 /* ============================================================
    shadcn/ui compat layer — always-dark, namespaced so its tokens

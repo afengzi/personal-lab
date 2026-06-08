@@ -1,0 +1,13 @@
+/* FENGZIAAA Lab — cosmos scene styles (ported from orbital.css + cockpit.css). */
+
+/* ---- starfield canvas ---- */
+.fz-stars {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; z-index: 0; pointer-events: none;
+}
+
+/* ---- connection-line canvas (hub <-> cards) ---- */
+.fz-lines {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; z-index: 1; pointer-events: none;
+}

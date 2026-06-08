@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { LocaleToggle } from "@/components/LocaleToggle";
+import { Starfield } from "@/lib/cosmos/Starfield";
 import {
   NeonPanel,
   NeonButton,
@@ -18,6 +19,7 @@ export default function Home() {
   const t = useTranslations();
   return (
     <div style={{ position: "fixed", inset: 0, overflow: "auto", padding: 32 }}>
+      <Starfield count={240} />
       <div style={{ position: "fixed", top: 24, right: 24, zIndex: 10 }}>
         <LocaleToggle />
       </div>
