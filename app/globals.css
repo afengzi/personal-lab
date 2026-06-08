@@ -1,26 +1,319 @@
 @import "tailwindcss";
 
+/* ============================================================
+   FENGZIAAA Lab — Design System tokens (ported from design-src)
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* --- Base backgrounds (deep void → panels) --- */
+  --void: #04070e;
+  --bg-base: #070b15;
+  --bg-deep: #0a0f1c;
+  --bg-panel: #0c1322;
+  --bg-elevated: #111a2c;
+  --bg-panel-glass: rgba(12, 19, 34, 0.72);
+
+  /* --- Hairlines & frames --- */
+  --line-faint: rgba(82, 209, 230, 0.1);
+  --line-dim: rgba(82, 209, 230, 0.18);
+  --line: rgba(82, 209, 230, 0.3);
+  --line-bright: rgba(82, 209, 230, 0.6);
+  --grid-line: rgba(82, 209, 230, 0.06);
+
+  /* --- Core neon signal palette --- */
+  --cyan: #2ee6f6;
+  --cyan-deep: #12a7c4;
+  --blue: #3b82f6;
+  --blue-bright: #5fa8ff;
+  --magenta: #ff2d9b;
+  --magenta-soft: #ff66b8;
+  --purple: #b06bff;
+  --purple-soft: #c89bff;
+  --green: #2bff88;
+  --green-soft: #6bffae;
+  --amber: #ffae3a;
+  --amber-soft: #ffce7a;
+  --red: #ff4d5e;
+
+  /* --- Per-node signal hues (orbital map identities) --- */
+  --node-ai: var(--purple);
+  --node-flow: var(--green);
+  --node-radar: var(--cyan);
+  --node-blog: var(--magenta);
+  --node-os: var(--amber);
+
+  /* --- Text --- */
+  --text-bright: #e9fcff;
+  --text: #a9c8d6;
+  --text-mono: #82c7d6;
+  --text-dim: #5b7787;
+  --text-faint: #3a5363;
+  --text-on-neon: #04070e;
+
+  /* --- Semantic aliases --- */
+  --accent: var(--cyan);
+  --accent-2: var(--magenta);
+  --success: var(--green);
+  --warning: var(--amber);
+  --danger: var(--red);
+  --info: var(--cyan);
+  --status-online: var(--green);
+  --status-busy: var(--amber);
+  --status-offline: var(--text-faint);
+
+  /* --- Fonts (next/font variables set in layout.tsx) --- */
+  --font-display: var(--font-orbitron), "Chakra Petch", sans-serif;
+  --font-techno: var(--font-chakra), "Orbitron", sans-serif;
+  --font-mono: var(--font-share-mono), ui-monospace, monospace;
+  --font-heading: var(--font-techno);
+  --font-body: var(--font-mono);
+  --font-data: var(--font-mono);
+
+  /* --- Type scale --- */
+  --text-3xs: 9px;
+  --text-2xs: 10px;
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 13px;
+  --text-md: 15px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 38px;
+  --text-4xl: 52px;
+  --text-display: 88px;
+
+  /* --- Weights --- */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 900;
+
+  /* --- Line heights --- */
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+
+  /* --- Letter spacing --- */
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.16em;
+  --tracking-widest: 0.28em;
+
+  /* --- Spacing scale (4px base) --- */
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 12px;
+  --space-6: 16px;
+  --space-7: 20px;
+  --space-8: 24px;
+  --space-9: 32px;
+  --space-10: 40px;
+
+  /* --- Radii --- */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+  --radius-pill: 999px;
+
+  /* --- Notch sizes --- */
+  --notch-sm: 8px;
+  --notch: 14px;
+  --notch-lg: 22px;
+  --hair: 1px;
+
+  /* --- Layout --- */
+  --gutter: 16px;
+  --panel-pad: 16px;
+  --panel-pad-lg: 20px;
+
+  /* --- Neon text glows --- */
+  --glow-cyan: 0 0 6px rgba(46, 230, 246, 0.55), 0 0 18px rgba(46, 230, 246, 0.35);
+  --glow-magenta: 0 0 6px rgba(255, 45, 155, 0.55), 0 0 18px rgba(255, 45, 155, 0.35);
+  --glow-green: 0 0 6px rgba(43, 255, 136, 0.55), 0 0 18px rgba(43, 255, 136, 0.35);
+  --glow-purple: 0 0 6px rgba(176, 107, 255, 0.55), 0 0 18px rgba(176, 107, 255, 0.35);
+  --glow-amber: 0 0 6px rgba(255, 174, 58, 0.55), 0 0 18px rgba(255, 174, 58, 0.35);
+
+  /* --- Box glows --- */
+  --halo-cyan: 0 0 0 1px rgba(46, 230, 246, 0.5), 0 0 14px rgba(46, 230, 246, 0.35);
+  --halo-magenta: 0 0 0 1px rgba(255, 45, 155, 0.5), 0 0 14px rgba(255, 45, 155, 0.35);
+  --halo-green: 0 0 0 1px rgba(43, 255, 136, 0.5), 0 0 14px rgba(43, 255, 136, 0.35);
+
+  /* --- Gradients --- */
+  --grad-brand: linear-gradient(135deg, var(--cyan) 0%, var(--magenta) 100%);
+  --grad-progress: linear-gradient(90deg, var(--cyan) 0%, var(--green) 100%);
+  --grad-panel: linear-gradient(180deg, rgba(12, 19, 33, 0.985) 0%, rgba(7, 11, 20, 0.99) 100%);
+
+  /* --- Backdrop blur --- */
+  --blur-panel: blur(6px);
+
+  /* --- Motion --- */
+  --ease-hud: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 120ms;
+  --dur: 220ms;
+  --dur-slow: 420ms;
 }
 
+/* Expose a few brand tokens to Tailwind utilities (optional usage) */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-void: var(--void);
+  --color-cyan: var(--cyan);
+  --color-magenta: var(--magenta);
+  --color-green: var(--green);
+  --color-amber: var(--amber);
+  --color-purple: var(--purple);
+  --font-display: var(--font-display);
+  --font-techno: var(--font-techno);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   Base reset + body atmosphere
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background-color: var(--void);
+  overflow: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    radial-gradient(120% 90% at 50% 0%, rgba(18, 40, 70, 0.38) 0%, rgba(7, 11, 21, 0) 58%),
+    radial-gradient(120% 120% at 50% 120%, rgba(40, 12, 55, 0.34) 0%, rgba(7, 11, 21, 0) 55%);
+  background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes fz-flicker {
+  0%, 100% { opacity: 1; }
+  47% { opacity: 1; }
+  48% { opacity: 0.72; }
+  49% { opacity: 1; }
+  92% { opacity: 0.85; }
+  93% { opacity: 1; }
+}
+@keyframes fz-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.9); }
+}
+@keyframes fz-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@keyframes fz-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+@keyframes fz-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes eqbar {
+  from { transform: scaleY(0.22); }
+  to { transform: scaleY(1); }
+}
+
+/* ============================================================
+   Typographic + HUD utilities
+   ============================================================ */
+.fz-wordmark {
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-bright);
+  text-shadow: var(--glow-cyan);
+}
+.fz-label {
+  font-family: var(--font-techno);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.fz-data {
+  font-family: var(--font-mono);
+  color: var(--text-mono);
+}
+.fz-glow-cyan { color: var(--cyan); text-shadow: var(--glow-cyan); }
+.fz-glow-magenta { color: var(--magenta); text-shadow: var(--glow-magenta); }
+.fz-glow-green { color: var(--green); text-shadow: var(--glow-green); }
+.fz-glow-purple { color: var(--purple); text-shadow: var(--glow-purple); }
+.fz-glow-amber { color: var(--amber); text-shadow: var(--glow-amber); }
+
+/* ---- Notched HUD panel (the signature object) ---- */
+.fz-panel {
+  --notch-size: var(--notch);
+  position: relative;
+  background: var(--grad-panel);
+  -webkit-backdrop-filter: var(--blur-panel);
+  backdrop-filter: var(--blur-panel);
+  clip-path: polygon(
+    0 var(--notch-size), var(--notch-size) 0,
+    100% 0, 100% calc(100% - var(--notch-size)),
+    calc(100% - var(--notch-size)) 100%, 0 100%
+  );
+  box-shadow:
+    inset 0 0 0 1px var(--frame, var(--line)),
+    inset 0 0 26px rgba(8, 14, 26, 0.55);
+}
+.fz-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Thin scrollbars ---- */
+.fz-scroll { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.fz-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.fz-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: var(--radius-pill); }
+.fz-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* ---- Live status dot ---- */
+.fz-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--status-online);
+  box-shadow: 0 0 8px currentColor;
+  color: var(--status-online);
+}
+.fz-dot.is-live { animation: fz-pulse 1.8s var(--ease-hud) infinite; }
+
+/* ---- Scanline veil (full-bleed CRT texture) ---- */
+.fz-scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0.16) 3px, rgba(0, 0, 0, 0) 4px
+  );
+  mix-blend-mode: multiply;
+  z-index: 50;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fz-dot.is-live { animation: none; }
 }
