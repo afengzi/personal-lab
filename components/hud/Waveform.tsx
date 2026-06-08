@@ -17,12 +17,13 @@ export function Waveform({
   animated?: boolean;
 }) {
   const heights = useMemo(() => {
+    const out: number[] = [];
     let s = seed;
-    const rnd = () => {
+    for (let i = 0; i < bars; i++) {
       s = (s * 9301 + 49297) % 233280;
-      return s / 233280;
-    };
-    return Array.from({ length: bars }, () => 0.22 + rnd() * 0.78);
+      out.push(0.22 + (s / 233280) * 0.78);
+    }
+    return out;
   }, [bars, seed]);
 
   return (
