@@ -1,0 +1,64 @@
+/* ============================================================
+   FENGZIAAA Lab — Effects: glows, shadows, gradients, motion
+   ============================================================ */
+
+:root {
+  /* --- Neon text glows --- */
+  --glow-cyan: 0 0 6px rgba(46,230,246,.55), 0 0 18px rgba(46,230,246,.35);
+  --glow-magenta: 0 0 6px rgba(255,45,155,.55), 0 0 18px rgba(255,45,155,.35);
+  --glow-green: 0 0 6px rgba(43,255,136,.55), 0 0 18px rgba(43,255,136,.35);
+  --glow-purple: 0 0 6px rgba(176,107,255,.55), 0 0 18px rgba(176,107,255,.35);
+  --glow-amber: 0 0 6px rgba(255,174,58,.55), 0 0 18px rgba(255,174,58,.35);
+
+  /* --- Box glows (halo around interactive/active elements) --- */
+  --halo-cyan: 0 0 0 1px rgba(46,230,246,.5), 0 0 14px rgba(46,230,246,.35);
+  --halo-magenta: 0 0 0 1px rgba(255,45,155,.5), 0 0 14px rgba(255,45,155,.35);
+  --halo-green: 0 0 0 1px rgba(43,255,136,.5), 0 0 14px rgba(43,255,136,.35);
+
+  /* --- Panel depth --- */
+  --shadow-panel: 0 2px 0 rgba(0,0,0,.4), 0 8px 30px rgba(0,0,0,.55);
+  --shadow-inset: inset 0 1px 0 rgba(82,209,230,.10), inset 0 0 24px rgba(8,14,26,.6);
+  --shadow-raise: 0 4px 18px rgba(0,0,0,.5);
+
+  /* --- Gradients --- */
+  --grad-brand: linear-gradient(135deg, var(--cyan) 0%, var(--magenta) 100%); /* @kind color */
+  --grad-cyan-blue: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
+  --grad-progress: linear-gradient(90deg, var(--cyan) 0%, var(--green) 100%);
+  --grad-panel: linear-gradient(180deg, rgba(12,19,33,.985) 0%, rgba(7,11,20,.99) 100%); /* @kind color */
+  --grad-scrim: linear-gradient(180deg, transparent, rgba(4,7,14,.9)); /* @kind color */
+
+  /* --- Backdrop blur for glass panels --- */
+  --blur-panel: blur(6px); /* @kind other */
+
+  /* --- Motion --- */
+  --ease-hud: cubic-bezier(0.22, 1, 0.36, 1);   /* @kind other */
+  --ease-snap: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --dur-fast: 120ms; /* @kind other */
+  --dur: 220ms; /* @kind other */
+  --dur-slow: 420ms; /* @kind other */
+}
+
+/* ---- Keyframes used across the system ---- */
+@keyframes fz-flicker {
+  0%, 100% { opacity: 1; }
+  47% { opacity: 1; }
+  48% { opacity: .72; }
+  49% { opacity: 1; }
+  92% { opacity: .85; }
+  93% { opacity: 1; }
+}
+@keyframes fz-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .55; transform: scale(.9); }
+}
+@keyframes fz-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@keyframes fz-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .15; }
+}
+@keyframes fz-spin {
+  to { transform: rotate(360deg); }
+}

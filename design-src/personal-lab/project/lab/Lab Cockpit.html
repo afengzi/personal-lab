@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FENGZIAAA · Lab Cockpit</title>
+<link rel="stylesheet" href="../_ds/fengziaaa-lab-design-system-5e6e065f-3837-4cb6-bf4e-4606b43be5cd/styles.css">
+<link rel="stylesheet" href="orbital.css">
+<link rel="stylesheet" href="cockpit.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="data.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--void); overflow: hidden; }
+  #app { position: fixed; inset: 0; }
+</style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script src="tweaks-panel.jsx" type="text/babel"></script>
+  <script src="hud.jsx" type="text/babel"></script>
+  <script src="Field.jsx" type="text/babel"></script>
+  <script src="Modules.jsx" type="text/babel"></script>
+  <script src="BoardScreen.jsx" type="text/babel"></script>
+  <script src="App.jsx" type="text/babel"></script>
+  <script type="text/babel" data-presets="env,react">
+    ReactDOM.createRoot(document.getElementById('app')).render(<window.App />);
+  </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+/* ============================================================
+   FENGZIAAA Lab — Color tokens
+   Cyberpunk HUD: neon accents on deep void, per-node signal hues
+   ============================================================ */
+
+:root {
+  /* --- Base backgrounds (deep void → panels) --- */
+  --void: #04070e;          /* deepest backdrop, behind everything */
+  --bg-base: #070b15;       /* page background */
+  --bg-deep: #0a0f1c;       /* recessed wells, console */
+  --bg-panel: #0c1322;      /* panel fill (used at ~0.72 alpha over void) */
+  --bg-elevated: #111a2c;   /* raised rows, hovered surfaces */
+  --bg-panel-glass: rgba(12, 19, 34, 0.72); /* translucent panel + blur */
+
+  /* --- Hairlines & frames --- */
+  --line-faint: rgba(82, 209, 230, 0.10);
+  --line-dim: rgba(82, 209, 230, 0.18);
+  --line: rgba(82, 209, 230, 0.30);
+  --line-bright: rgba(82, 209, 230, 0.60);
+  --grid-line: rgba(82, 209, 230, 0.06);
+
+  /* --- Core neon signal palette --- */
+  --cyan: #2ee6f6;          /* PRIMARY brand accent */
+  --cyan-deep: #12a7c4;
+  --blue: #3b82f6;
+  --blue-bright: #5fa8ff;
+  --magenta: #ff2d9b;       /* pink — secondary accent */
+  --magenta-soft: #ff66b8;
+  --purple: #b06bff;
+  --purple-soft: #c89bff;
+  --green: #2bff88;         /* acid green — success / progress */
+  --green-soft: #6bffae;
+  --amber: #ffae3a;         /* warning / open-source signal */
+  --amber-soft: #ffce7a;
+  --red: #ff4d5e;           /* danger / critical */
+
+  /* --- Per-node signal hues (orbital map identities) --- */
+  --node-ai: var(--purple);        /* AI Copilot */
+  --node-flow: var(--green);       /* Flowcraft */
+  --node-radar: var(--cyan);       /* Dev Radar */
+  --node-blog: var(--magenta);     /* Neon Blog */
+  --node-os: var(--amber);         /* Open Source */
+
+  /* --- Text --- */
+  --text-bright: #e9fcff;   /* headlines, key numbers (cyan-white) */
+  --text: #a9c8d6;          /* default body */
+  --text-mono: #82c7d6;     /* terminal / data readouts */
+  --text-dim: #5b7787;      /* labels, captions, secondary */
+  --text-faint: #3a5363;    /* disabled, ghost */
+  --text-on-neon: #04070e;  /* dark text on bright neon fills */
+
+  /* --- Semantic aliases --- */
+  --accent: var(--cyan);
+  --accent-2: var(--magenta);
+  --surface-page: var(--bg-base);
+  --surface-card: var(--bg-panel-glass);
+  --surface-well: var(--bg-deep);
+  --surface-row: var(--bg-elevated);
+  --border-card: var(--line-dim);
+  --border-card-strong: var(--line);
+  --text-heading: var(--text-bright);
+  --text-body: var(--text);
+  --text-label: var(--text-dim);
+  --success: var(--green);
+  --warning: var(--amber);
+  --danger: var(--red);
+  --info: var(--cyan);
+
+  /* --- Status dot colors --- */
+  --status-online: var(--green);
+  --status-busy: var(--amber);
+  --status-offline: var(--text-faint);
+}

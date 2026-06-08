@@ -1,0 +1,94 @@
+/* ============================================================
+   FENGZIAAA Lab — Base reset + core HUD utilities
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background-color: var(--bg-base);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    radial-gradient(120% 90% at 50% 0%, rgba(18,40,70,.38) 0%, rgba(7,11,21,0) 58%),
+    radial-gradient(120% 120% at 50% 120%, rgba(40,12,55,.34) 0%, rgba(7,11,21,0) 55%);
+  background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Optional faint scanline veil — add class "fz-scanlines" to a full-bleed layer */
+.fz-scanlines { position: relative; }
+.fz-scanlines::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,.16) 3px, rgba(0,0,0,0) 4px);
+  mix-blend-mode: multiply;
+  z-index: 50;
+}
+
+/* ---- Typographic helpers ---- */
+.fz-wordmark {
+  font-family: var(--font-display);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-bright);
+  text-shadow: var(--glow-cyan);
+}
+.fz-label {
+  font-family: var(--font-techno);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.fz-data { font-family: var(--font-mono); color: var(--text-mono); }
+
+.fz-glow-cyan { color: var(--cyan); text-shadow: var(--glow-cyan); }
+.fz-glow-magenta { color: var(--magenta); text-shadow: var(--glow-magenta); }
+.fz-glow-green { color: var(--green); text-shadow: var(--glow-green); }
+.fz-glow-purple { color: var(--purple); text-shadow: var(--glow-purple); }
+.fz-glow-amber { color: var(--amber); text-shadow: var(--glow-amber); }
+
+/* ---- Notched HUD panel ----
+   Single element: dark glass fill + a 1px neon edge drawn as an inset shadow
+   (clipped by the notch for the cut-corner HUD look). Set --frame to recolor. */
+.fz-panel {
+  --notch-size: var(--notch);
+  position: relative;
+  background: var(--grad-panel);
+  backdrop-filter: var(--blur-panel);
+  -webkit-backdrop-filter: var(--blur-panel);
+  clip-path: polygon(
+    0 var(--notch-size), var(--notch-size) 0,
+    100% 0, 100% calc(100% - var(--notch-size)),
+    calc(100% - var(--notch-size)) 100%, 0 100%);
+  box-shadow:
+    inset 0 0 0 1px var(--frame, var(--line)),
+    inset 0 0 26px rgba(8, 14, 26, 0.55);
+}
+.fz-panel > * { position: relative; z-index: 1; }
+
+/* ---- Thin scrollbars ---- */
+.fz-scroll { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.fz-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.fz-scroll::-webkit-scrollbar-thumb {
+  background: var(--line); border-radius: var(--radius-pill);
+}
+.fz-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* ---- A small live status dot ---- */
+.fz-dot {
+  display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--status-online);
+  box-shadow: 0 0 8px currentColor; color: var(--status-online);
+}
+.fz-dot.is-live { animation: fz-pulse 1.8s var(--ease-hud) infinite; }

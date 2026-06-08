@@ -1,0 +1,43 @@
+/* ============================================================
+   FENGZIAAA Lab — Spacing, radii, layout tokens
+   4px base grid; sharp HUD geometry with notched corners
+   ============================================================ */
+
+:root {
+  /* --- Spacing scale (4px base) --- */
+  --space-0: 0;
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 12px;
+  --space-6: 16px;
+  --space-7: 20px;
+  --space-8: 24px;
+  --space-9: 32px;
+  --space-10: 40px;
+  --space-11: 56px;
+  --space-12: 72px;
+
+  /* --- Radii (HUD is mostly sharp; small rounding only) --- */
+  --radius-none: 0;
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+  --radius-pill: 999px;
+
+  /* --- Notched corner size for clip-path panels --- */
+  --notch-sm: 8px;
+  --notch: 14px;
+  --notch-lg: 22px;
+
+  /* --- Hairline width --- */
+  --hair: 1px;
+
+  /* --- Layout --- */
+  --gutter: 16px;
+  --panel-pad: 16px;
+  --panel-pad-lg: 20px;
+  --content-max: 1480px;
+}
