@@ -1,0 +1,233 @@
+{
+  "brand": { "domain": "fengziaaa.com" },
+  "nav": { "cockpit": "Cockpit", "roadmap": "Roadmap" },
+  "hud": {
+    "status": "{ideas} Ideas · {modules} Modules",
+    "mapHint": "drag to drift · grab a card · click to open"
+  },
+  "submit": {
+    "cta": "Have an idea? Submit it",
+    "newSubmission": "New Submission",
+    "title": "Have an idea?",
+    "prompt": "Share it. Build it. Change something.",
+    "ideaTitle": "Idea title",
+    "ideaTitlePlaceholder": "e.g. One-click dev environment",
+    "whatShouldItDo": "What should it do?",
+    "descPlaceholder": "A sentence or two on the vibe…",
+    "category": "Category",
+    "submitBtn": "Submit your idea",
+    "cancel": "Cancel",
+    "launched": "Idea \"{title}\" submitted — pending review",
+    "error": "Something went wrong. Try again."
+  },
+  "tweaks": {
+    "title": "Tweaks",
+    "atmosphere": "Atmosphere",
+    "accent": "Accent",
+    "starField": "Star field",
+    "sparse": "sparse",
+    "medium": "medium",
+    "dense": "dense",
+    "idleDrift": "Idle drift",
+    "scanlines": "Scanlines"
+  },
+  "fly": {
+    "buildProgress": "Build Progress",
+    "built": "{progress}% BUILT",
+    "open": "OPEN",
+    "stage": "Stage",
+    "progress": "Progress",
+    "stars": "Stars",
+    "updated": "Updated",
+    "updatedAgo": "{updated} ago",
+    "openProject": "Open project",
+    "backToOrbit": "Back to orbit",
+    "stages": { "backlog": "Backlog", "exploring": "Exploring", "building": "Building", "shipped": "Shipped" }
+  },
+  "board": {
+    "title": "IDEAS BOARD",
+    "subtitle": "100 ideas mission · drag a card to change its stage",
+    "totalIdeas": "Total Ideas",
+    "shipped": "Shipped",
+    "mission": "Mission",
+    "newIdea": "New Idea",
+    "dropHere": "drop ideas here",
+    "advance": "Advance",
+    "columns": { "backlog": "Backlog", "explore": "Exploring", "build": "Building", "shipped": "Shipped" },
+    "notes": {
+      "ai": "Context-aware pair programmer",
+      "flow": "Visual AI workflow builder",
+      "radar": "Real-time dev insights",
+      "blog": "Thoughts on code & AI",
+      "os": "Developer resources platform",
+      "git3d": "See history in 3D",
+      "prompt": "Reusable prompt snippets",
+      "time": "Replay any project state",
+      "stack": "One command, any machine",
+      "cockpit": "This very cosmos"
+    }
+  },
+  "categories": {
+    "aiDev": "AI / Dev",
+    "aiTools": "AI / Tools",
+    "tools": "Tools",
+    "analytics": "Analytics",
+    "content": "Content",
+    "platform": "Platform",
+    "tooling": "Tooling",
+    "devops": "DevOps",
+    "web": "Web"
+  },
+  "ideas": {
+    "ai": {
+      "title": "AI Copilot",
+      "cat": "AI / Dev",
+      "desc": "Context-aware pair programmer",
+      "blurb": "A pair programmer that reads your whole repo, remembers the thread, and ships diffs you can actually trust. Inline review, test generation, and a memory of every decision you have made.",
+      "sub": { "repoMemory": "Repo Memory", "inlineReview": "Inline Review", "testGen": "Test Gen" }
+    },
+    "flow": {
+      "title": "Flowcraft",
+      "cat": "AI / Tools",
+      "desc": "Visual AI workflow builder",
+      "blurb": "Drag nodes, wire prompts, watch data flow. Build agentic pipelines without leaving the canvas — branch on model output, fan out to tools, and replay any run step by step.",
+      "sub": { "nodeCanvas": "Node Canvas", "toolRouting": "Tool Routing", "runReplay": "Run Replay" }
+    },
+    "radar": {
+      "title": "Dev Radar",
+      "cat": "Analytics",
+      "desc": "Real-time dev insights",
+      "blurb": "Live telemetry across every repo — what shipped, what broke, what is trending in your stack. A single pane that turns scattered GitHub signals into a heartbeat.",
+      "sub": { "liveFeed": "Live Feed", "repoHealth": "Repo Health", "trends": "Trends" }
+    },
+    "blog": {
+      "title": "Neon Blog",
+      "cat": "Content",
+      "desc": "Thoughts on code, AI & the future",
+      "blurb": "Long-form notes from building in public. Code, AI, and the occasional 2am idea — written raw, shipped fast, and indexed so future-me can actually find them.",
+      "sub": { "buildingInPublic": "Building in Public", "aiNotes": "AI Notes", "rssFeed": "RSS Feed" }
+    },
+    "os": {
+      "title": "Open Source Hub",
+      "cat": "Platform",
+      "desc": "Developer resources platform",
+      "blurb": "A hub of reusable building blocks — give back to the community, one commit at a time. Templates, starters, and battle-tested snippets with a bounty board on top.",
+      "sub": { "templates": "Templates", "bountyBoard": "Bounty Board", "snippets": "Snippets" }
+    },
+    "git3d": {
+      "title": "Visual Git 3D",
+      "cat": "Tooling",
+      "desc": "See your history in 3D",
+      "blurb": "Branches as orbits, commits as stars. Fly through your repository history in a spatial graph and finally understand that merge from six months ago.",
+      "sub": { "branchOrbits": "Branch Orbits", "commitStars": "Commit Stars", "flyThrough": "Fly-through" }
+    },
+    "prompt": {
+      "title": "Prompt Library",
+      "cat": "AI / Tools",
+      "desc": "Reusable prompt snippets",
+      "blurb": "A versioned, taggable home for the prompts that actually work. Fork, test against models side by side, and drop the winner straight into your codebase.",
+      "sub": { "versioning": "Versioning", "abTest": "A/B Test", "export": "Export" }
+    },
+    "time": {
+      "title": "Time Machine",
+      "cat": "Tooling",
+      "desc": "Replay any project state",
+      "blurb": "Scrub your project like a video. Jump to any past state, diff two moments in time, and resurrect that file you deleted three refactors ago.",
+      "sub": { "snapshots": "Snapshots", "diffView": "Diff View", "restore": "Restore" }
+    },
+    "stack": {
+      "title": "Vibe Stack",
+      "cat": "DevOps",
+      "desc": "One command, any machine",
+      "blurb": "Dotfiles, environments, and secrets that follow you everywhere. One command spins up a fresh machine into your exact setup — shipped and battle-tested daily.",
+      "sub": { "dotfiles": "Dotfiles", "secrets": "Secrets", "oneCommand": "One-Command" }
+    }
+  },
+  "modules": {
+    "label": "System Module",
+    "github": { "title": "GitHub Presence", "desc": "Live profile & activity" },
+    "console": { "title": "System Console", "desc": "Real-time log stream" },
+    "mission": { "title": "100 Ideas Mission", "desc": "63 / 100 shipped" },
+    "visitor": { "title": "Visitor Ideas", "desc": "Community submissions" },
+    "quick": { "title": "Quick Access", "desc": "Jump to any module" },
+    "telemetry": { "title": "Lab Telemetry", "desc": "Signal · intake · vibe" }
+  },
+  "github": {
+    "recentActivity": "Recent Activity",
+    "repos": "Repos",
+    "followers": "Followers",
+    "following": "Following",
+    "commits": "Commits",
+    "live": "Live"
+  },
+  "console": {
+    "logStream": "Log Stream",
+    "vibeMode": "vibe mode: ENABLED",
+    "init": "Lab cockpit initialized",
+    "ok": "All systems operational",
+    "ghConnected": "GitHub API connected",
+    "ideasOnline": "Ideas engine online",
+    "syncActive": "Real-time sync active",
+    "ready": "Ready to build the future",
+    "polling": "Polling fengziaaa/flowcraft …",
+    "pulled": "Pulled 3 new commits",
+    "ideaReceived": "Idea #143 received from @neondev",
+    "missionRecalc": "Mission progress recalculated → 63%",
+    "throughput": "Network throughput 42.7 MB/s",
+    "reindexed": "Orbital map re-indexed · 9 nodes",
+    "queueDrained": "Build queue drained · 0 pending",
+    "rateLimit": "Dev Radar rate-limit at 82%"
+  },
+  "mission": {
+    "missionProgress": "Mission Progress",
+    "ideasReceived": "Ideas Received",
+    "ideasCompleted": "Ideas Completed",
+    "inProgress": "In Progress",
+    "foot": "Build 100 ideas. Inspire millions."
+  },
+  "visitor": {
+    "submissions": "{n} Submissions · ↑ 7 New",
+    "submitYourIdea": "Submit your idea",
+    "empty": "No ideas yet — be the first.",
+    "v1": "AI Code Review Game",
+    "v2": "One-Click Dev Environment",
+    "v3": "Project Time Machine",
+    "v4": "AI Debugger",
+    "v5": "Open Source Bounty Board"
+  },
+  "quick": {
+    "jumpTo": "Jump to any module",
+    "notes": "Lab Notes",
+    "snippets": "Snippets",
+    "play": "Playground",
+    "roadmap": "Roadmap",
+    "achieve": "Achievements",
+    "stack": "Stack",
+    "settings": "Settings",
+    "contact": "Contact"
+  },
+  "telemetry": {
+    "dataIntake": "Data Intake",
+    "labSignal": "Lab Signal",
+    "vibeLevel": "Vibe Level",
+    "strong": "STRONG",
+    "high": "HIGH"
+  },
+  "owner": {
+    "tagline": "Building in public. Ship daily.",
+    "location": "Shenzhen, China"
+  },
+  "activity": {
+    "push": "Pushed to fengziaaa/flowcraft",
+    "pushSub": "feat: add AI context summarizer",
+    "pr": "Opened PR #128",
+    "prSub": "fix: streaming render performance",
+    "merge": "Merged PR #127",
+    "mergeSub": "chore: upgrade dev dependencies",
+    "issue": "Created Issue #126",
+    "issueSub": "idea: visual git graph in 3D",
+    "star": "Starred vercel/ai",
+    "starSub": "SDK for building AI apps"
+  },
+  "common": { "moduleComingOnline": "{label} module · coming online" }
+}

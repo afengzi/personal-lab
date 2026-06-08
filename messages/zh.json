@@ -1,0 +1,233 @@
+{
+  "brand": { "domain": "fengziaaa.com" },
+  "nav": { "cockpit": "座舱", "roadmap": "路线图" },
+  "hud": {
+    "status": "{ideas} 个想法 · {modules} 个模块",
+    "mapHint": "拖拽漂移 · 抓住卡片 · 点击展开"
+  },
+  "submit": {
+    "cta": "有想法？提交它",
+    "newSubmission": "新提交",
+    "title": "有想法吗？",
+    "prompt": "分享它。造出来。改变点什么。",
+    "ideaTitle": "想法标题",
+    "ideaTitlePlaceholder": "例如：一键开发环境",
+    "whatShouldItDo": "它该做什么？",
+    "descPlaceholder": "用一两句话描述这个 vibe…",
+    "category": "分类",
+    "submitBtn": "提交你的想法",
+    "cancel": "取消",
+    "launched": "想法「{title}」已提交，等待审核",
+    "error": "出错了，请重试。"
+  },
+  "tweaks": {
+    "title": "微调",
+    "atmosphere": "氛围",
+    "accent": "主题色",
+    "starField": "星空密度",
+    "sparse": "稀疏",
+    "medium": "适中",
+    "dense": "密集",
+    "idleDrift": "空闲漂移",
+    "scanlines": "扫描线"
+  },
+  "fly": {
+    "buildProgress": "构建进度",
+    "built": "已完成 {progress}%",
+    "open": "打开",
+    "stage": "阶段",
+    "progress": "进度",
+    "stars": "星标",
+    "updated": "更新",
+    "updatedAgo": "{updated}前",
+    "openProject": "打开项目",
+    "backToOrbit": "返回轨道",
+    "stages": { "backlog": "待办", "exploring": "探索中", "building": "构建中", "shipped": "已发布" }
+  },
+  "board": {
+    "title": "想法看板",
+    "subtitle": "100 个想法的使命 · 拖动卡片改变它的阶段",
+    "totalIdeas": "想法总数",
+    "shipped": "已发布",
+    "mission": "使命",
+    "newIdea": "新想法",
+    "dropHere": "把想法拖到这里",
+    "advance": "推进",
+    "columns": { "backlog": "待办", "explore": "探索中", "build": "构建中", "shipped": "已发布" },
+    "notes": {
+      "ai": "上下文感知的结对程序员",
+      "flow": "可视化 AI 工作流构建器",
+      "radar": "实时开发洞察",
+      "blog": "关于代码与 AI 的思考",
+      "os": "开发者资源平台",
+      "git3d": "用 3D 看你的历史",
+      "prompt": "可复用的提示词片段",
+      "time": "回放任意项目状态",
+      "stack": "一条命令，任意机器",
+      "cockpit": "就是这片宇宙"
+    }
+  },
+  "categories": {
+    "aiDev": "AI / 开发",
+    "aiTools": "AI / 工具",
+    "tools": "工具",
+    "analytics": "分析",
+    "content": "内容",
+    "platform": "平台",
+    "tooling": "工具链",
+    "devops": "DevOps",
+    "web": "网页"
+  },
+  "ideas": {
+    "ai": {
+      "title": "AI Copilot",
+      "cat": "AI / 开发",
+      "desc": "上下文感知的结对程序员",
+      "blurb": "一个会读完你整个仓库、记得上下文、并交付你真正能信任的 diff 的结对程序员。内联评审、测试生成，以及对你每一个决策的记忆。",
+      "sub": { "repoMemory": "仓库记忆", "inlineReview": "内联评审", "testGen": "测试生成" }
+    },
+    "flow": {
+      "title": "Flowcraft",
+      "cat": "AI / 工具",
+      "desc": "可视化 AI 工作流构建器",
+      "blurb": "拖动节点、连接提示词、看数据流动。不离开画布就能搭建智能体流水线——按模型输出分支、扇出到工具、逐步回放任意一次运行。",
+      "sub": { "nodeCanvas": "节点画布", "toolRouting": "工具路由", "runReplay": "运行回放" }
+    },
+    "radar": {
+      "title": "Dev Radar",
+      "cat": "分析",
+      "desc": "实时开发洞察",
+      "blurb": "横跨每个仓库的实时遥测——什么发布了、什么坏了、你技术栈里什么在升温。一块面板，把零散的 GitHub 信号变成一次心跳。",
+      "sub": { "liveFeed": "实时流", "repoHealth": "仓库健康", "trends": "趋势" }
+    },
+    "blog": {
+      "title": "Neon Blog",
+      "cat": "内容",
+      "desc": "关于代码、AI 与未来的思考",
+      "blurb": "建造在公开之处的长文笔记。代码、AI，以及偶尔凌晨两点的灵感——写得粗粝、发得迅速、索引到位，好让未来的我真能找到它们。",
+      "sub": { "buildingInPublic": "公开建造", "aiNotes": "AI 笔记", "rssFeed": "RSS 订阅" }
+    },
+    "os": {
+      "title": "Open Source Hub",
+      "cat": "平台",
+      "desc": "开发者资源平台",
+      "blurb": "一个可复用积木的中枢——一次一个 commit 地回馈社区。模板、起手式，以及久经实战的代码片段，外加一块悬赏板。",
+      "sub": { "templates": "模板", "bountyBoard": "悬赏板", "snippets": "片段" }
+    },
+    "git3d": {
+      "title": "Visual Git 3D",
+      "cat": "工具链",
+      "desc": "用 3D 看你的历史",
+      "blurb": "分支化作轨道，提交化作星辰。在一张空间图里穿越你的仓库历史，终于看懂半年前那次合并。",
+      "sub": { "branchOrbits": "分支轨道", "commitStars": "提交星辰", "flyThrough": "穿越飞行" }
+    },
+    "prompt": {
+      "title": "Prompt Library",
+      "cat": "AI / 工具",
+      "desc": "可复用的提示词片段",
+      "blurb": "给那些真正好用的提示词一个有版本、可打标签的家。fork、并排对比不同模型、把胜出者直接丢进代码库。",
+      "sub": { "versioning": "版本管理", "abTest": "A/B 测试", "export": "导出" }
+    },
+    "time": {
+      "title": "Time Machine",
+      "cat": "工具链",
+      "desc": "回放任意项目状态",
+      "blurb": "像刷视频一样擦洗你的项目。跳到任意过去状态、对比两个时刻、复活三次重构前删掉的那个文件。",
+      "sub": { "snapshots": "快照", "diffView": "差异视图", "restore": "恢复" }
+    },
+    "stack": {
+      "title": "Vibe Stack",
+      "cat": "DevOps",
+      "desc": "一条命令，任意机器",
+      "blurb": "跟着你走遍各处的 dotfiles、环境与密钥。一条命令把全新机器装成你确切的配置——每天发布、久经实战。",
+      "sub": { "dotfiles": "Dotfiles", "secrets": "密钥", "oneCommand": "一条命令" }
+    }
+  },
+  "modules": {
+    "label": "系统模块",
+    "github": { "title": "GitHub 在线", "desc": "实时资料与动态" },
+    "console": { "title": "系统控制台", "desc": "实时日志流" },
+    "mission": { "title": "100 想法使命", "desc": "63 / 100 已发布" },
+    "visitor": { "title": "访客想法", "desc": "社区提交" },
+    "quick": { "title": "快捷入口", "desc": "跳转到任意模块" },
+    "telemetry": { "title": "实验室遥测", "desc": "信号 · 摄入 · vibe" }
+  },
+  "github": {
+    "recentActivity": "近期动态",
+    "repos": "仓库",
+    "followers": "关注者",
+    "following": "关注中",
+    "commits": "提交",
+    "live": "在线"
+  },
+  "console": {
+    "logStream": "日志流",
+    "vibeMode": "vibe 模式：已启用",
+    "init": "实验室座舱已初始化",
+    "ok": "所有系统运行正常",
+    "ghConnected": "GitHub API 已连接",
+    "ideasOnline": "想法引擎已上线",
+    "syncActive": "实时同步已激活",
+    "ready": "准备好建造未来",
+    "polling": "正在轮询 fengziaaa/flowcraft …",
+    "pulled": "拉取了 3 个新提交",
+    "ideaReceived": "收到来自 @neondev 的想法 #143",
+    "missionRecalc": "使命进度已重新计算 → 63%",
+    "throughput": "网络吞吐 42.7 MB/s",
+    "reindexed": "轨道图已重建索引 · 9 个节点",
+    "queueDrained": "构建队列已清空 · 0 待处理",
+    "rateLimit": "Dev Radar 限流达 82%"
+  },
+  "mission": {
+    "missionProgress": "使命进度",
+    "ideasReceived": "收到想法",
+    "ideasCompleted": "完成想法",
+    "inProgress": "进行中",
+    "foot": "建造 100 个想法，启发数百万人。"
+  },
+  "visitor": {
+    "submissions": "{n} 条提交 · ↑ 7 条新增",
+    "submitYourIdea": "提交你的想法",
+    "empty": "还没有想法——来当第一个吧。",
+    "v1": "AI 代码评审游戏",
+    "v2": "一键开发环境",
+    "v3": "项目时光机",
+    "v4": "AI 调试器",
+    "v5": "开源悬赏板"
+  },
+  "quick": {
+    "jumpTo": "跳转到任意模块",
+    "notes": "实验笔记",
+    "snippets": "代码片段",
+    "play": "游乐场",
+    "roadmap": "路线图",
+    "achieve": "成就",
+    "stack": "技术栈",
+    "settings": "设置",
+    "contact": "联系"
+  },
+  "telemetry": {
+    "dataIntake": "数据摄入",
+    "labSignal": "实验室信号",
+    "vibeLevel": "Vibe 等级",
+    "strong": "强",
+    "high": "高"
+  },
+  "owner": {
+    "tagline": "建造在公开之处，每日发布。",
+    "location": "中国 · 深圳"
+  },
+  "activity": {
+    "push": "推送到 fengziaaa/flowcraft",
+    "pushSub": "feat: 新增 AI 上下文摘要器",
+    "pr": "开启 PR #128",
+    "prSub": "fix: 流式渲染性能",
+    "merge": "合并 PR #127",
+    "mergeSub": "chore: 升级开发依赖",
+    "issue": "创建 Issue #126",
+    "issueSub": "idea: 3D 可视化 git 图",
+    "star": "为 vercel/ai 加星",
+    "starSub": "用于构建 AI 应用的 SDK"
+  },
+  "common": { "moduleComingOnline": "{label} 模块 · 正在上线" }
+}
