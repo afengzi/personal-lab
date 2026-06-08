@@ -8,6 +8,7 @@ import type { CardOrigin } from "@/lib/cosmos/IdeaCard";
 import { NeonButton } from "@/components/hud/NeonButton";
 import { Icon } from "@/components/hud/Icon";
 import { HudBar } from "@/components/HudBar";
+import { FlyCard } from "@/components/overlays/FlyCard";
 import { ideas } from "@/content/ideas";
 import { modules } from "@/content/modules";
 
@@ -21,6 +22,8 @@ export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: nu
 
   const detailOpen = !!sel;
   const onSelect = (id: string, origin: CardOrigin) => setSel({ id, origin });
+  const close = () => setSel(null);
+  const ideaNode = sel ? ideas.find((n) => n.id === sel.id) : undefined;
 
   return (
     <div className="fz-lab">
@@ -52,6 +55,8 @@ export function CosmosScreen({ starCount = 240, drift = true }: { starCount?: nu
           {t("submit.cta")}
         </NeonButton>
       </div>
+
+      {ideaNode && <FlyCard node={ideaNode} origin={sel?.origin ?? null} onClose={close} />}
     </div>
   );
 }

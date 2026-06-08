@@ -202,3 +202,41 @@
 }
 .nav-btn:hover { color: var(--lab-accent); border-color: var(--lab-accent); }
 .nav-btn.active { color: var(--lab-accent); border-color: var(--lab-accent); background: color-mix(in srgb, var(--lab-accent) 12%, var(--bg-deep)); box-shadow: 0 0 16px -6px var(--lab-accent); }
+
+/* ---- fly-to-front detail overlay (base-ui dialog, neon-styled) ---- */
+.fz-fly-backdrop {
+  position: fixed; inset: 0; z-index: 100;
+  background: radial-gradient(circle at center, rgba(4,7,14,.84), rgba(4,7,14,.95));
+}
+.fz-fly-backdrop[data-starting-style],
+.fz-fly-backdrop[data-ending-style] { opacity: 0; }
+.fz-fly-backdrop { transition: opacity .26s var(--ease-hud); }
+.fz-fly-popup {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  z-index: 101; outline: none; max-height: 92vh;
+}
+.fz-fly-card {
+  position: relative; width: min(580px, 92vw); overflow: hidden;
+  background: #0a1120; border-radius: 10px;
+  box-shadow: inset 0 0 0 1px var(--frame), 0 30px 80px -30px #000;
+  transform-origin: center center;
+}
+.fz-fly-glow { position: absolute; inset: 0; pointer-events: none; }
+.fz-fly-edge { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; z-index: 2; }
+.fz-fly-close {
+  position: absolute; top: 16px; right: 16px; z-index: 3;
+  width: 32px; height: 32px; display: grid; place-items: center;
+  background: var(--bg-deep); border: 1px solid var(--line-dim); border-radius: 5px;
+  color: var(--text-dim); cursor: pointer; transition: all .18s var(--ease-hud);
+}
+.fz-fly-close:hover { color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 14px -5px var(--cyan); }
+.fz-fly-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px 0;
+  border-top: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint);
+}
+.fz-fly-stats .k {
+  font-family: var(--font-techno); font-weight: 600; font-size: 9px;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 5px;
+}
+.fz-fly-stats .v { font-family: var(--font-mono); font-size: 15px; }
+.fz-fly-body { position: relative; padding: 30px 32px 28px; max-height: 92vh; overflow-y: auto; }
