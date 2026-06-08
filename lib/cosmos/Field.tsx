@@ -79,6 +79,7 @@ export function Field({
   useEffect(() => {
     let raf = 0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
     const lc = linesRef.current;
     if (!lc) return;
     const lctx = lc.getContext("2d");
@@ -96,7 +97,7 @@ export function Field({
     window.addEventListener("resize", resize);
 
     const tick = () => {
-      if (!drag.current && drift) {
+      if (!drag.current && drift && !reduce) {
         vel.current.y += (0.05 - vel.current.y) * 0.03;
         rot.current.y += vel.current.y;
         rot.current.x += (-6 - rot.current.x) * 0.012;
@@ -111,7 +112,7 @@ export function Field({
       const view = { ry, rx, W, H, R, P };
       const hubX = W / 2;
       const hubY = 0.52 * H;
-      const now = performance.now();
+      const now = reduce ? 0 : performance.now();
 
       lctx.clearRect(0, 0, W, H);
 
