@@ -69,6 +69,7 @@ docker pull "$APP_IMAGE"
 docker rm -f lab-app 2>/dev/null || true
 docker run -d --name lab-app --restart unless-stopped \
   -p 127.0.0.1:3001:3000 \
+  --memory 512m --memory-swap 512m \
   --add-host "db.${DOMAIN}:host-gateway" \
   -e SUPABASE_URL="https://db.${DOMAIN}" \
   -e SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY" \

@@ -1,0 +1,55 @@
+name: Ops
+
+# Manual diagnostics + recovery (runs on a GitHub runner that SSHes in with the
+# deploy key). Use when the box needs a look without a local SSH session.
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "what to run"
+        type: choice
+        default: diagnose
+        options: [diagnose, restart-panel, stop-lab]
+
+permissions:
+  contents: read
+
+jobs:
+  ops:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare SSH key
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Run
+        env:
+          SERVER_HOST: ${{ vars.SERVER_HOST }}
+          SERVER_USER: ${{ vars.SERVER_USER }}
+          ACTION: ${{ inputs.action }}
+        run: |
+          ssh -o StrictHostKeyChecking=accept-new "${SERVER_USER}@${SERVER_HOST}" \
+            "ACTION='${ACTION}' bash -s" <<'EOF'
+          set -uo pipefail
+          echo "===== memory ====="; free -m
+          echo "===== top containers by mem ====="; docker stats --no-stream --format '{{.Name}}\t{{.MemUsage}}\t{{.MemPerc}}' 2>/dev/null | sort -t$'\t' -k3 -hr | head -15
+          echo "===== recent OOM kills (dmesg) ====="; (dmesg 2>/dev/null | grep -iE 'killed process|out of memory|oom-killer' | tail -10) || echo "dmesg unavailable"
+          echo "===== bt panel status ====="; (systemctl status bt --no-pager 2>/dev/null | head -5) || true
+          BT_PORT="$( (cat /www/server/panel/data/port.pl 2>/dev/null) || echo '?')"; echo "bt panel port: $BT_PORT"; ss -tlnp 2>/dev/null | grep -E ":${BT_PORT}\b" || echo "  (nothing listening on bt port)"
+          echo "===== lab-app ====="; docker ps -a --filter name=lab-app --format '{{.Names}} {{.Status}}'
+
+          if [ "${ACTION}" = "restart-panel" ]; then
+            echo "===== restarting bt panel ====="
+            (bt restart || /etc/init.d/bt restart || systemctl restart bt) 2>&1 | tail -10
+            sleep 3
+            ss -tlnp 2>/dev/null | grep -E ":${BT_PORT}\b" && echo "  bt panel listening again" || echo "  still not listening"
+          elif [ "${ACTION}" = "stop-lab" ]; then
+            echo "===== stopping lab-app to free memory ====="
+            docker stop lab-app 2>&1 | tail -2
+            free -m
+          fi
+          EOF
