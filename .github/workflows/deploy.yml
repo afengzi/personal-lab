@@ -57,7 +57,7 @@ jobs:
           IMAGE: ${{ env.IMAGE }}
           IMAGE_TAG: ${{ github.sha }}
           ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
-          GITHUB_HANDLE: ${{ vars.GITHUB_HANDLE }}
+          GITHUB_HANDLE: ${{ vars.GH_HANDLE }}
           GHCR_USER: ${{ github.actor }}
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bash deploy/deploy.sh
