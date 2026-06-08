@@ -14,13 +14,15 @@ import { HudBar } from "@/components/HudBar";
 import { FlyCard } from "@/components/overlays/FlyCard";
 import { ModuleDetail } from "@/components/overlays/ModuleDetail";
 import { SubmitModal, type SubmitPayload } from "@/components/overlays/SubmitModal";
+import type { GithubData } from "@/components/overlays/bodies/GithubBody";
+import type { VisitorItem } from "@/components/overlays/bodies/VisitorBody";
 import { ideas } from "@/content/ideas";
 import { modules } from "@/content/modules";
 
 /* Home cosmos screen: starfield + 3D field + center wordmark + HUD bar + submit.
    Detail overlays (idea fly-card, module panels) and the submit modal are wired
    in later tasks via the `sel` / `submitOpen` state held here. */
-export function CosmosScreen() {
+export function CosmosScreen({ github = null, visitorIdeas = [] }: { github?: GithubData; visitorIdeas?: VisitorItem[] }) {
   const t = useTranslations();
   const router = useRouter();
   const [sel, setSel] = useState<{ id: string; origin: CardOrigin } | null>(null);
@@ -53,9 +55,22 @@ export function CosmosScreen() {
     setSel(null);
     setSubmitOpen(true);
   };
-  const onSubmitIdea = (p: SubmitPayload) => {
+  const onSubmitIdea = async (p: SubmitPayload) => {
     setSubmitOpen(false);
-    toast.success(t("submit.launched", { title: p.title }));
+    try {
+      const res = await fetch("/api/ideas", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(p),
+      });
+      if (res.ok) toast.success(t("submit.launched", { title: p.title }));
+      else toast.error(t("submit.error"));
+    } catch {
+      toast.error(t("submit.error"));
+    }
+  };
+  const onVote = (id: string) => {
+    void fetch(`/api/ideas/${id}/vote`, { method: "POST" }).catch(() => {});
   };
 
   return (
@@ -90,7 +105,17 @@ export function CosmosScreen() {
       </div>
 
       {ideaNode && <FlyCard node={ideaNode} origin={sel?.origin ?? null} onClose={close} />}
-      {moduleNode && <ModuleDetail node={moduleNode} onClose={close} onNav={onNav} onOpenSubmit={openSubmit} />}
+      {moduleNode && (
+        <ModuleDetail
+          node={moduleNode}
+          onClose={close}
+          onNav={onNav}
+          onOpenSubmit={openSubmit}
+          github={github}
+          visitorItems={visitorIdeas}
+          onVote={onVote}
+        />
+      )}
       {submitOpen && <SubmitModal onClose={() => setSubmitOpen(false)} onSubmit={onSubmitIdea} />}
 
       {tw.scanlines && <div className="fz-scanlines" style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 80 }} />}

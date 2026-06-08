@@ -6,10 +6,10 @@ import type { CSSProperties } from "react";
 import { FzDialog } from "./FzDialog";
 import { Icon } from "@/components/hud/Icon";
 import type { ModuleNode } from "@/content/types";
-import { GithubBody } from "./bodies/GithubBody";
+import { GithubBody, type GithubData } from "./bodies/GithubBody";
 import { ConsoleBody } from "./bodies/ConsoleBody";
 import { MissionBody } from "./bodies/MissionBody";
-import { VisitorBody } from "./bodies/VisitorBody";
+import { VisitorBody, type VisitorItem } from "./bodies/VisitorBody";
 import { QuickBody } from "./bodies/QuickBody";
 import { TelemetryBody } from "./bodies/TelemetryBody";
 
@@ -28,21 +28,28 @@ export function ModuleDetail({
   onClose,
   onNav,
   onOpenSubmit,
+  github = null,
+  visitorItems,
+  onVote,
 }: {
   node: ModuleNode;
   onClose: () => void;
   onNav: (id: string) => void;
   onOpenSubmit: () => void;
+  github?: GithubData;
+  visitorItems?: VisitorItem[];
+  onVote?: (id: string) => void;
 }) {
   const t = useTranslations();
   const reduce = useReducedMotion();
   const w = MOD_WIDTH[node.id] ?? 540;
 
   let body: React.ReactNode = null;
-  if (node.id === "github") body = <GithubBody />;
+  if (node.id === "github") body = <GithubBody data={github} />;
   else if (node.id === "console") body = <ConsoleBody />;
   else if (node.id === "mission") body = <MissionBody />;
-  else if (node.id === "visitor") body = <VisitorBody onOpenSubmit={onOpenSubmit} />;
+  else if (node.id === "visitor")
+    body = <VisitorBody items={visitorItems && visitorItems.length ? visitorItems : undefined} onOpenSubmit={onOpenSubmit} onVote={onVote} />;
   else if (node.id === "quick") body = <QuickBody onNav={onNav} />;
   else if (node.id === "telemetry") body = <TelemetryBody />;
 

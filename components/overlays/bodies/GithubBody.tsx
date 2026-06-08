@@ -4,30 +4,48 @@ import { useTranslations } from "next-intl";
 import { Icon } from "@/components/hud/Icon";
 import { StatusPill } from "@/components/hud/Indicators";
 import { owner, activity } from "@/content/telemetry";
+import type { GithubEvent, GithubProfile } from "@/lib/github";
 import { SectionLabel } from "./SectionLabel";
 
-/* Live GitHub profile + activity. (Task 20 will feed real data via props;
-   for now it renders the curated fallback identity.) */
-export function GithubBody() {
+export type GithubData = { profile: GithubProfile; events: GithubEvent[] } | null;
+
+/* Live GitHub profile + activity, falling back to the curated identity when no
+   live data is available (e.g. before env is configured). */
+export function GithubBody({ data }: { data?: GithubData }) {
   const t = useTranslations();
+
+  const profile = data?.profile;
+  const handle = profile?.handle ?? owner.handle;
+  const bio = profile?.bio ?? t("owner.tagline");
+  const location = profile?.location ?? t("owner.location");
+  const url = profile?.url ?? owner.url;
+  const avatar = profile?.avatarUrl ?? "/logo-mark.svg";
+  const repos = profile?.repos ?? owner.repos;
+  const followers = profile?.followers ?? owner.followers;
+  const following = profile?.following ?? owner.following;
+
+  const events =
+    data?.events ??
+    activity.map((a) => ({ icon: a.icon, tone: a.tone, title: t(`activity.${a.titleKey}`), sub: t(`activity.${a.subKey}`), time: a.time }));
+
   return (
     <div>
       <div className="gh-profile">
         <div className="gh-avatar">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-mark.svg" alt="fz" />
+          <img src={avatar} alt={handle} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div className="gh-name">{owner.handle}</div>
-          <div className="gh-bio">{t("owner.tagline")}</div>
+          <div className="gh-name">{handle}</div>
+          <div className="gh-bio">{bio}</div>
           <div className="gh-meta">
             <span>
               <Icon n="map-pin" size={11} color="var(--text-dim)" />
-              {t("owner.location")}
+              {location}
             </span>
             <span>
               <Icon n="link" size={11} color="var(--text-dim)" />
-              {owner.url}
+              {url}
             </span>
           </div>
         </div>
@@ -37,15 +55,15 @@ export function GithubBody() {
       </div>
       <div className="gh-stats">
         <div className="gh-stat">
-          <div className="n">{owner.repos}</div>
+          <div className="n">{repos}</div>
           <div className="l">{t("github.repos")}</div>
         </div>
         <div className="gh-stat">
-          <div className="n">{owner.followers}</div>
+          <div className="n">{followers}</div>
           <div className="l">{t("github.followers")}</div>
         </div>
         <div className="gh-stat">
-          <div className="n">{owner.following}</div>
+          <div className="n">{following}</div>
           <div className="l">{t("github.following")}</div>
         </div>
         <div className="gh-stat">
@@ -54,14 +72,14 @@ export function GithubBody() {
         </div>
       </div>
       <SectionLabel>{t("github.recentActivity")}</SectionLabel>
-      {activity.map((a, i) => (
+      {events.map((a, i) => (
         <div className="act-row" key={i}>
           <div className="act-ico">
             <Icon n={a.icon} size={12} color={a.tone} />
           </div>
           <div className="act-main">
-            <div className="act-t">{t(`activity.${a.titleKey}`)}</div>
-            <div className="act-s">{t(`activity.${a.subKey}`)}</div>
+            <div className="act-t">{a.title}</div>
+            {a.sub && <div className="act-s">{a.sub}</div>}
           </div>
           <div className="act-time">{a.time}</div>
         </div>

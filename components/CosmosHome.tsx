@@ -1,6 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { GithubData } from "@/components/overlays/bodies/GithubBody";
+import type { VisitorItem } from "@/components/overlays/bodies/VisitorBody";
 
 /* The cosmos is a canvas + drag interactive scene with no SSR value, and its
    lazy lucide icons cause hydration mismatches. Render it client-only with a
@@ -16,6 +18,6 @@ const CosmosScreen = dynamic(() => import("@/components/CosmosScreen").then((m) 
   ),
 });
 
-export default function CosmosHome() {
-  return <CosmosScreen />;
+export default function CosmosHome({ github, visitorIdeas }: { github: GithubData; visitorIdeas: VisitorItem[] }) {
+  return <CosmosScreen github={github} visitorIdeas={visitorIdeas} />;
 }
