@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="zh"
-      className={`${orbitron.variable} ${chakra.variable} ${shareMono.variable}`}
+      className={`dark ${orbitron.variable} ${chakra.variable} ${shareMono.variable}`}
     >
       <body>{children}</body>
     </html>
