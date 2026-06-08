@@ -26,7 +26,7 @@ async function voteCounts(ideaIds: string[]): Promise<Map<string, number>> {
   const counts = new Map<string, number>();
   if (ideaIds.length === 0) return counts;
   const sb = supabaseAdmin();
-  const { data } = await sb.from("votes").select("idea_id").in("idea_id", ideaIds);
+  const { data } = await sb.from("lab_votes").select("idea_id").in("idea_id", ideaIds);
   for (const row of (data ?? []) as { idea_id: string }[]) {
     counts.set(row.idea_id, (counts.get(row.idea_id) ?? 0) + 1);
   }
@@ -36,7 +36,7 @@ async function voteCounts(ideaIds: string[]): Promise<Map<string, number>> {
 /** Approved ideas with vote counts, most-voted first. */
 export async function listApproved(): Promise<PublicIdea[]> {
   const sb = supabaseAdmin();
-  const { data, error } = await sb.from("ideas").select("*").eq("status", "approved");
+  const { data, error } = await sb.from("lab_ideas").select("*").eq("status", "approved");
   if (error) throw error;
   const rows = (data ?? []) as IdeaRow[];
   const counts = await voteCounts(rows.map((r) => r.id));
@@ -58,7 +58,7 @@ export type NewIdea = { title: string; description?: string; category?: string; 
 /** Insert a submission as pending (awaiting moderation). */
 export async function insertPending(input: NewIdea): Promise<void> {
   const sb = supabaseAdmin();
-  const { error } = await sb.from("ideas").insert({
+  const { error } = await sb.from("lab_ideas").insert({
     title: input.title,
     description: input.description ?? null,
     category: input.category ?? null,
@@ -71,21 +71,21 @@ export async function insertPending(input: NewIdea): Promise<void> {
 /** Record a vote (idempotent via unique constraint) and return the new count. */
 export async function addVote(ideaId: string, key: string): Promise<number> {
   const sb = supabaseAdmin();
-  await sb.from("votes").upsert({ idea_id: ideaId, voter_key: key }, { onConflict: "idea_id,voter_key", ignoreDuplicates: true });
-  const { count } = await sb.from("votes").select("*", { count: "exact", head: true }).eq("idea_id", ideaId);
+  await sb.from("lab_votes").upsert({ idea_id: ideaId, voter_key: key }, { onConflict: "idea_id,voter_key", ignoreDuplicates: true });
+  const { count } = await sb.from("lab_votes").select("*", { count: "exact", head: true }).eq("idea_id", ideaId);
   return count ?? 0;
 }
 
 /* ---- moderation ---- */
 export async function listPending(): Promise<IdeaRow[]> {
   const sb = supabaseAdmin();
-  const { data, error } = await sb.from("ideas").select("*").eq("status", "pending").order("created_at", { ascending: false });
+  const { data, error } = await sb.from("lab_ideas").select("*").eq("status", "pending").order("created_at", { ascending: false });
   if (error) throw error;
   return (data ?? []) as IdeaRow[];
 }
 
 export async function setStatus(id: string, status: IdeaStatus): Promise<void> {
   const sb = supabaseAdmin();
-  const { error } = await sb.from("ideas").update({ status }).eq("id", id);
+  const { error } = await sb.from("lab_ideas").update({ status }).eq("id", id);
   if (error) throw error;
 }

@@ -1,0 +1,63 @@
+name: Deploy
+
+# push to main → build the image on the runner, push to GHCR, then deploy.sh
+# SSHes into the server and (re)starts the lab app container. The production box
+# only pulls + runs; it never builds (build peaks would OOM the 4GB box).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-lab-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE: ghcr.io/${{ github.repository_owner }}/personal-lab
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push app image (on the runner, not the prod box)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:${{ github.sha }}
+
+      - name: Prepare deploy SSH key
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Deploy (pull image, apply migrations, restart container)
+        env:
+          SERVER_HOST: ${{ vars.SERVER_HOST }}
+          SERVER_USER: ${{ vars.SERVER_USER }}
+          DOMAIN: ${{ vars.DOMAIN }}
+          IMAGE: ${{ env.IMAGE }}
+          IMAGE_TAG: ${{ github.sha }}
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
+          GITHUB_HANDLE: ${{ vars.GITHUB_HANDLE }}
+          GHCR_USER: ${{ github.actor }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash deploy/deploy.sh

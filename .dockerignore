@@ -1,0 +1,17 @@
+.git
+node_modules
+.next
+.env
+.env.*
+!.env.example
+design-src
+docs
+coverage
+test-results
+playwright-report
+supabase/.branches
+supabase/.temp
+**/*.test.ts
+**/*.test.tsx
+.DS_Store
+README.md

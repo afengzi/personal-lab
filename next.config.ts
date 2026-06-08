@@ -4,7 +4,8 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Emit a self-contained server bundle for the Docker runner image.
+  output: "standalone",
 };
 
 export default withNextIntl(nextConfig);
