@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FENGZIAAA · Lab Cockpit
 
-## Getting Started
+A cyberpunk "Vibecoding Personal Lab" homepage — an immersive cosmos where your
+projects float around you, system modules orbit a central hub, and visitors can
+submit ideas that move across a roadmap kanban. Bilingual (中文 / English).
 
-First, run the development server:
+Faithful re-implementation of the Claude Design prototype in `design-src/`.
+
+## Stack
+
+- **Next.js (App Router) + TypeScript**, Tailwind v4, shadcn/ui (base-ui)
+- **next-intl** — bilingual, cookie-remembered, no URL routing
+- **Supabase (Postgres)** — visitor ideas + votes (moderated, 先审后发)
+- **Motion** (overlays), **dnd-kit** (kanban), **lucide-react**, **Sonner**
+- Signature visuals hand-written: starfield + 3D node field + connection canvas
+  (`lib/cosmos/`), neon HUD panels (`app/cosmos.css`)
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+cp .env.example .env.local      # fill in values (see below)
+pnpm dev                        # http://localhost:3000
+pnpm test                       # vitest (projection / voterKey / content keys)
+pnpm lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Local Supabase (the backend)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+supabase start                  # local Postgres + API (Docker)
+supabase db reset               # apply migrations in supabase/migrations/
+supabase status -o env          # prints API URL + anon/service keys
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Put those into `.env.local`:
 
-## Learn More
+```
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54421
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+GITHUB_HANDLE=fengziaaa          # any GitHub username — see "Make it yours"
+ADMIN_SECRET=choose-a-secret
+```
 
-To learn more about Next.js, take a look at the following resources:
+> Local ports are remapped to the **544xx** range in `supabase/config.toml` to
+> avoid an ssh tunnel occupying the default 5432x ports on this machine.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Without Supabase env, the app still runs: visitor ideas fall back to a seed and
+submit/vote are no-ops (cosmos, overlays, roadmap, tweaks all work).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Moderation
 
-## Deploy on Vercel
+Visitor submissions land as `pending`. Approve them at **`/admin`** (enter
+`ADMIN_SECRET`), or directly in the Supabase dashboard by setting `status`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Make it yours
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **GitHub** — set `GITHUB_HANDLE` to any username; `lib/github.ts` fetches that
+  account's public profile/repos/events (no token needed; `GITHUB_TOKEN` optional
+  to raise the rate limit).
+- **Brand** — the `FENGZIAAA` wordmark lives in `components/CosmosScreen.tsx`
+  (center) and the loading fallback in `components/CosmosHome.tsx`; the domain is
+  `brand.domain` in `messages/{zh,en}.json`; owner fallback in `content/telemetry.ts`.
+- **Projects** — edit `content/ideas.ts` + the `ideas.*` keys in the dictionaries.
+
+## Deploy (Vercel)
+
+The frontend deploys as-is. For the **backend** in production you need a **hosted
+Supabase** (Vercel can't reach a local one):
+
+1. Create a project at supabase.com, run the SQL in `supabase/migrations/` on it.
+2. On Vercel set env: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
+   `SUPABASE_SERVICE_ROLE_KEY`, `GITHUB_HANDLE`, optional `GITHUB_TOKEN`, `ADMIN_SECRET`.
+3. `vercel` (or connect the repo). Without the Supabase env it deploys with the
+   mock fallback + real GitHub data.
+
+## Layout
+
+```
+app/            routes (/ cosmos, /roadmap, /admin, /api/*) + globals + cosmos.css
+lib/cosmos/     starfield, 3D field, projection (unit-tested)
+lib/ideas/      voterKey (unit-tested), repo
+lib/supabase/   service-role admin client
+lib/github.ts   cached public GitHub fetch
+components/hud/      neon primitives     components/overlays/  fly-card + module panels
+components/board/    kanban              components/tweaks/    tweaks panel
+content/        curated data (i18n keys)    messages/  zh + en dictionaries
+design-src/     the original exported prototype (reference)
+docs/superpowers/   spec + implementation plan
+```
