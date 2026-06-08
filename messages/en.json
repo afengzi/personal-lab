@@ -53,6 +53,7 @@
     "newIdea": "New Idea",
     "dropHere": "drop ideas here",
     "advance": "Advance",
+    "cockpitTitle": "Personal Cockpit",
     "columns": { "backlog": "Backlog", "explore": "Exploring", "build": "Building", "shipped": "Shipped" },
     "notes": {
       "ai": "Context-aware pair programmer",

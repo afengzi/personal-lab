@@ -53,6 +53,7 @@
     "newIdea": "新想法",
     "dropHere": "把想法拖到这里",
     "advance": "推进",
+    "cockpitTitle": "个人座舱",
     "columns": { "backlog": "待办", "explore": "探索中", "build": "构建中", "shipped": "已发布" },
     "notes": {
       "ai": "上下文感知的结对程序员",
