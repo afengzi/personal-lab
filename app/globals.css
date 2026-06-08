@@ -370,6 +370,10 @@ body {
   z-index: 50;
 }
 
+/* ---- equalizer bars ---- */
+.eq { display: flex; align-items: center; gap: 3px; flex: 1; height: 26px; }
+.eq span { flex: 1; border-radius: 1px; transform-origin: center; }
+
 /* ---- locale toggle ---- */
 .locale-toggle {
   display: inline-grid;
