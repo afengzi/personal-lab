@@ -6,6 +6,12 @@ submit ideas that move across a roadmap kanban. Bilingual (中文 / English).
 
 Faithful re-implementation of the Claude Design prototype in `design-src/`.
 
+![Lab Cockpit cosmos](.github/screenshots/cosmos.png)
+
+| Project fly-card | GitHub presence | Roadmap kanban |
+| --- | --- | --- |
+| ![Project fly-card](.github/screenshots/project-card.png) | ![GitHub presence](.github/screenshots/github-panel.png) | ![Roadmap kanban](.github/screenshots/roadmap.png) |
+
 ## Stack
 
 - **Next.js (App Router) + TypeScript**, Tailwind v4, shadcn/ui (base-ui)
@@ -18,6 +24,8 @@ Faithful re-implementation of the Claude Design prototype in `design-src/`.
 ## Develop
 
 ```bash
+git clone https://github.com/afengzi/personal-lab.git
+cd personal-lab
 pnpm install
 cp .env.example .env.local      # fill in values (see below)
 pnpm dev                        # http://localhost:3000
@@ -39,7 +47,7 @@ Put those into `.env.local`:
 NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54421
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...
-GITHUB_HANDLE=fengziaaa          # any GitHub username — see "Make it yours"
+GITHUB_HANDLE=afengzi          # any GitHub username — see "Make it yours"
 ADMIN_SECRET=choose-a-secret
 ```
 
@@ -74,6 +82,14 @@ Supabase** (Vercel can't reach a local one):
    `SUPABASE_SERVICE_ROLE_KEY`, `GITHUB_HANDLE`, optional `GITHUB_TOKEN`, `ADMIN_SECRET`.
 3. `vercel` (or connect the repo). Without the Supabase env it deploys with the
    mock fallback + real GitHub data.
+
+## Deploy (self-hosted Docker)
+
+Alternatively, CI (`.github/workflows/deploy.yml`) builds the `Dockerfile` image,
+pushes it to GHCR, and runs `deploy/deploy.sh` on the server — it applies the
+`lab_*` migrations into an existing self-hosted Supabase Postgres and (re)starts
+the app container. Configure the repo vars (`SERVER_HOST`, `SERVER_USER`,
+`DOMAIN`, `GH_HANDLE`) and secrets (`DEPLOY_SSH_KEY`, `ADMIN_SECRET`).
 
 ## Layout
 
