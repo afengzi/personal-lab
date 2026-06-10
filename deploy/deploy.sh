@@ -19,7 +19,7 @@ cd "$(dirname "$0")"
 : "${IMAGE:?set IMAGE}"
 : "${IMAGE_TAG:?set IMAGE_TAG}"
 : "${ADMIN_SECRET:?set ADMIN_SECRET}"
-GITHUB_HANDLE="${GITHUB_HANDLE:-fengziaaa}"
+GITHUB_HANDLE="${GITHUB_HANDLE:-afengzi}"
 VESPER_DIR="${VESPER_DIR:-/opt/vesper}"
 
 SSH=(ssh -o StrictHostKeyChecking=accept-new "${SERVER_USER}@${SERVER_HOST}")

@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components/hud/Icon";
 import { StatusPill } from "@/components/hud/Indicators";
+import { NeonButton } from "@/components/hud/NeonButton";
 import { owner, activity } from "@/content/telemetry";
 import type { GithubEvent, GithubProfile } from "@/lib/github";
 import { SectionLabel } from "./SectionLabel";
@@ -84,6 +85,11 @@ export function GithubBody({ data }: { data?: GithubData }) {
           <div className="act-time">{a.time}</div>
         </div>
       ))}
+      <div style={{ marginTop: 16 }}>
+        <NeonButton href={`https://${url}`} iconRight={<Icon n="arrow-up-right" size={13} />}>
+          {t("github.visitProfile")}
+        </NeonButton>
+      </div>
     </div>
   );
 }

@@ -14,6 +14,7 @@ export type NeonButtonProps = {
   iconRight?: ReactNode;
   onClick?: () => void;
   type?: "button" | "submit";
+  href?: string;
   style?: CSSProperties;
 };
 
@@ -26,6 +27,7 @@ export function NeonButton({
   iconRight,
   onClick,
   type = "button",
+  href,
   style,
 }: NeonButtonProps) {
   const [h, setH] = useState(false);
@@ -64,17 +66,32 @@ export function NeonButton({
     },
     ghost: { background: "transparent", color: "var(--text-dim)", border: "1px solid transparent" },
   };
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      onMouseEnter={() => setH(true)}
-      onMouseLeave={() => setH(false)}
-      style={{ ...base, ...variants[variant], ...style }}
-    >
+  const merged = { ...base, ...variants[variant], ...style };
+  const content = (
+    <>
       {icon}
       {children}
       {iconRight}
+    </>
+  );
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        onClick={onClick}
+        onMouseEnter={() => setH(true)}
+        onMouseLeave={() => setH(false)}
+        style={{ ...merged, textDecoration: "none" }}
+      >
+        {content}
+      </a>
+    );
+  }
+  return (
+    <button type={type} onClick={onClick} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} style={merged}>
+      {content}
     </button>
   );
 }

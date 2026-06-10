@@ -54,7 +54,7 @@ const EVENT_META: Record<string, { icon: string; tone: string }> = {
 };
 
 export async function fetchGithub(): Promise<{ profile: GithubProfile; events: GithubEvent[] } | null> {
-  const handle = process.env.GITHUB_HANDLE || "fengziaaa";
+  const handle = process.env.GITHUB_HANDLE || "afengzi";
   try {
     const [userRes, eventsRes] = await Promise.all([
       fetch(`https://api.github.com/users/${handle}`, { headers: authHeaders(), next: { revalidate: REVALIDATE } }),

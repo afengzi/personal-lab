@@ -159,7 +159,8 @@
     "followers": "关注者",
     "following": "关注中",
     "commits": "提交",
-    "live": "在线"
+    "live": "在线",
+    "visitProfile": "访问 GitHub 主页"
   },
   "console": {
     "logStream": "日志流",
@@ -170,7 +171,7 @@
     "ideasOnline": "想法引擎已上线",
     "syncActive": "实时同步已激活",
     "ready": "准备好建造未来",
-    "polling": "正在轮询 fengziaaa/flowcraft …",
+    "polling": "正在轮询 afengzi/flowcraft …",
     "pulled": "拉取了 3 个新提交",
     "ideaReceived": "收到来自 @neondev 的想法 #143",
     "missionRecalc": "使命进度已重新计算 → 63%",
@@ -219,7 +220,7 @@
     "location": "中国 · 深圳"
   },
   "activity": {
-    "push": "推送到 fengziaaa/flowcraft",
+    "push": "推送到 afengzi/flowcraft",
     "pushSub": "feat: 新增 AI 上下文摘要器",
     "pr": "开启 PR #128",
     "prSub": "fix: 流式渲染性能",

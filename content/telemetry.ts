@@ -9,9 +9,9 @@ import type {
 /* Owner identity (fallback; replaced by live GitHub data in the github module).
    Text fields (tagline/location) are keyed under `owner.*`. */
 export const owner = {
-  handle: "fengziaaa",
+  handle: "afengzi",
   domain: "fengziaaa.com",
-  url: "github.com/fengziaaa",
+  url: "github.com/afengzi",
   repos: 72,
   followers: "1.2k",
   following: 98,

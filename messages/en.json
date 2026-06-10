@@ -159,7 +159,8 @@
     "followers": "Followers",
     "following": "Following",
     "commits": "Commits",
-    "live": "Live"
+    "live": "Live",
+    "visitProfile": "Visit Profile"
   },
   "console": {
     "logStream": "Log Stream",
@@ -170,7 +171,7 @@
     "ideasOnline": "Ideas engine online",
     "syncActive": "Real-time sync active",
     "ready": "Ready to build the future",
-    "polling": "Polling fengziaaa/flowcraft …",
+    "polling": "Polling afengzi/flowcraft …",
     "pulled": "Pulled 3 new commits",
     "ideaReceived": "Idea #143 received from @neondev",
     "missionRecalc": "Mission progress recalculated → 63%",
@@ -219,7 +220,7 @@
     "location": "Shenzhen, China"
   },
   "activity": {
-    "push": "Pushed to fengziaaa/flowcraft",
+    "push": "Pushed to afengzi/flowcraft",
     "pushSub": "feat: add AI context summarizer",
     "pr": "Opened PR #128",
     "prSub": "fix: streaming render performance",
