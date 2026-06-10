@@ -14,6 +14,10 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Exported design prototype bundle — reference only, not our source.
     "design-src/**",
+    // Remotion promo video — standalone package with its own toolchain (gitignored).
+    "video/**",
+    // Docs — specs and plans, not lintable source.
+    "docs/**",
   ]),
 ]);
 
